@@ -55,15 +55,7 @@ export default function Home({ allPostsData }) {
           width={140}
           height={140}
         ></Image>
-        <h1 className={styles.title}>
-          Read this Post{' '}
-          <Link className={styles.href} href="/posts/first-post">
-            첫번째 글
-          </Link>
-        </h1>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1 className={styles.title}>Read this Post</h1>
 
         <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
           <h2 className={utilStyles.headingLg}>Blog</h2>
