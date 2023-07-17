@@ -2,20 +2,34 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getSortedPostsData } from '../lib/posts';
+// import { getSortedPostsData } from '../lib/posts';
 import utilStyles from '../styles/utils.module.css';
+import { useEffect, useState } from 'react';
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
+// ssg와 ssr의 기능을 왔다갔다하는건
+// getStaticProps와 getServerSideProps 이름의 차이
 
-  return {
-    props: {
-      allPostsData,
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   const allPostsData = getSortedPostsData();
 
-export default function Home({ allPostsData }) {
+//   return {
+//     props: {
+//       allPostsData,
+//     },
+//   };
+// }
+
+// CSR은 리액트와 같은 방법으로 해줌
+
+export default function Home() {
+  const [allPostsData, setAllPostsData] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/posts')
+      .then((res) => res.json())
+      .then((data) => setAllPostsData(data.allPostsData));
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
