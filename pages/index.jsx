@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Image from 'next/image';
 import { getSortedPostsData } from '../lib/posts';
@@ -42,12 +41,7 @@ export default function Home({ allPostsData }) {
   // }, []);
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <>
       <main>
         <Image
           src="/images/스크린샷 2023-04-11 오후 11.14.56.png"
@@ -114,21 +108,6 @@ export default function Home({ allPostsData }) {
           text-decoration: none;
           color: inherit;
         }
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family:
-            Menlo,
-            Monaco,
-            Lucida Console,
-            Liberation Mono,
-            DejaVu Sans Mono,
-            Bitstream Vera Sans Mono,
-            Courier New,
-            monospace;
-        }
       `}</style>
 
       <style jsx global>{`
@@ -153,6 +132,6 @@ export default function Home({ allPostsData }) {
           box-sizing: border-box;
         }
       `}</style>
-    </div>
+    </>
   );
 }

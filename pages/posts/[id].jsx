@@ -1,16 +1,15 @@
-import { getPostData } from '../../lib/posts';
+import { getAllPostIds, getPostData } from '../../lib/posts';
 import Date from '../../components/Date';
 import { useRouter } from 'next/router';
+// import Button from '@/components/Button';
+import dynamic from 'next/dynamic';
+
+const Button = dynamic(() => import('@/components/Button'), {
+  loading: () => <div>Loading...</div>,
+});
 
 export async function getStaticPaths() {
-  // const paths = getAllPostIds();
-  const paths = [
-    {
-      params: {
-        id: 'ssg-ssr',
-      },
-    },
-  ];
+  const paths = getAllPostIds();
   return {
     paths,
     fallback: true,
@@ -26,7 +25,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
-const Post = ({ postData }) => {
+const Post = ({ postData, pathname }) => {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -35,6 +34,7 @@ const Post = ({ postData }) => {
 
   return (
     <>
+      <h1>{pathname}</h1>
       {postData.title}
       <br />
       {postData.id}
@@ -42,6 +42,9 @@ const Post = ({ postData }) => {
       <Date dateString={postData.date} />
       <br />
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <br />
+      <br />
+      <Button link="/">Home</Button>
     </>
   );
 };

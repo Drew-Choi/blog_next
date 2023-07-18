@@ -62,7 +62,14 @@ const Write = () => {
       <br />
       <br />
       <form onSubmit={handleSubmit}>
-        <input type="text" name="id" placeholder="id" required ref={idRef} />
+        <input
+          type="text"
+          name="id"
+          placeholder="id"
+          required
+          ref={idRef}
+          className="border border-solid border-black"
+        />
         <br />
         <br />
         <input
@@ -71,6 +78,7 @@ const Write = () => {
           placeholder="title"
           required
           ref={titleRef}
+          className="border border-solid border-black"
         />
         <br />
         <br />
@@ -80,6 +88,7 @@ const Write = () => {
           placeholder="content"
           required
           ref={contentRef}
+          className="border border-solid border-black"
         />
         <br />
         <br />

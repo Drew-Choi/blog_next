@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './layout.module.css';
+import Image from 'next/image';
 
 const Layout = ({ children }) => {
   const [theme, setTheme] = useState(() =>
@@ -20,25 +21,25 @@ const Layout = ({ children }) => {
 
   const handleClick = () => {
     const localTheme = localStorage.getItem('theme');
-    if (localTheme === 'dark') {
-      localStorage.setItem('theme', 'light');
-      setTheme('light');
-    } else {
+    if (localTheme === 'light') {
       localStorage.setItem('theme', 'dark');
       setTheme('dark');
+    } else {
+      localStorage.setItem('theme', 'light');
+      setTheme('light');
     }
   };
 
   return (
-    <div className="bg-white dark:bg-black text-gray-800 dark:text-gray-200">
+    <div className="bg-white dark:bg-black text-gray-800 dark:text-gray-200 heigh h-screen">
       <button className="w-12 px-2 relative left-5 top-5" onClick={handleClick}>
         {theme === 'dark' ? (
-          <img src="/sun-8728.svg" alt="lightMode" />
+          <Image src="/sun-8728.svg" alt="light" width={120} height={120} />
         ) : (
-          <img src="/moon-6689.svg" alt="darkMode" />
+          <Image src="/moon-6689.svg" alt="dark" width={120} height={120} />
         )}
       </button>
-      <div className={styles.container}> {children}</div>
+      <div className={styles.containerLayout}>{children}</div>
     </div>
   );
 };
