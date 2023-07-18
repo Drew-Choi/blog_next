@@ -55,6 +55,9 @@ export default function Home({ allPostsData }) {
           height={140}
         ></Image>
         <h1 className={styles.title}>Read this Post</h1>
+        <Link href="/post/write">
+          <h2>Write Post 👉</h2>
+        </Link>
 
         <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
           <h2 className={utilStyles.headingLg}>Blog</h2>

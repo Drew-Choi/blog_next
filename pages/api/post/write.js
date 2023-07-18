@@ -1,0 +1,20 @@
+import { createPost } from '../../../lib/posts';
+import { format } from 'date-fns';
+
+const handler = async (req, res) => {
+  const { id, title, content } = req.body;
+
+  try {
+    await createPost({
+      id,
+      title,
+      date: format(new Date(), 'yyyy-MM-dd'),
+      content,
+    });
+    res.status(200).json({ message: 'create success' });
+  } catch (err) {
+    res.status(500).json({ error: `create failed: ${err}` });
+  }
+};
+
+export default handler;
