@@ -3,10 +3,28 @@ import Date from '../../components/Date';
 import { useRouter } from 'next/router';
 // import Button from '@/components/Button';
 import dynamic from 'next/dynamic';
+import { useState } from 'react';
 
 const Button = dynamic(() => import('@/components/Button'), {
   loading: () => <div>Loading...</div>,
 });
+
+const ErrorComp = () => {
+  const [error, setError] = useState(false);
+
+  if (error) {
+    throw new Error('Error occured');
+  }
+
+  return (
+    <button
+      className="rounded px-2 bg-green-500"
+      onClick={() => setError(true)}
+    >
+      Error Fire
+    </button>
+  );
+};
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -34,6 +52,7 @@ const Post = ({ postData, pathname }) => {
 
   return (
     <>
+      <ErrorComp />
       <h1>{pathname}</h1>
       {postData.title}
       <br />
