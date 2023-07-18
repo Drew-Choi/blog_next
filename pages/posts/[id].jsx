@@ -1,11 +1,19 @@
-import Head from 'next/head';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import { getPostData } from '../../lib/posts';
+import Date from '../../components/Date';
+import { useRouter } from 'next/router';
 
 export async function getStaticPaths() {
-  const paths = getAllPostIds();
+  // const paths = getAllPostIds();
+  const paths = [
+    {
+      params: {
+        id: 'ssg-ssr',
+      },
+    },
+  ];
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
@@ -19,13 +27,19 @@ export async function getStaticProps({ params }) {
 }
 
 const Post = ({ postData }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       {postData.title}
       <br />
       {postData.id}
       <br />
-      {postData.date}
+      <Date dateString={postData.date} />
       <br />
       <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
     </>

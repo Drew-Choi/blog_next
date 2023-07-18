@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import Link from 'next/link';
 import Image from 'next/image';
-// import { getSortedPostsData } from '../lib/posts';
+import { getSortedPostsData } from '../lib/posts';
 import utilStyles from '../styles/utils.module.css';
+import Link from 'next/link';
 // import { useEffect, useState } from 'react';
 
 // ssg와 ssr의 기능을 왔다갔다하는건
@@ -20,13 +20,12 @@ import utilStyles from '../styles/utils.module.css';
 // }
 
 export async function getStaticProps() {
-  const response = await fetch('http://localhost:3000/api/posts');
-  const json = await response.json();
+  const allPostsData = getSortedPostsData();
   console.log('서버');
 
   return {
     props: {
-      allPostsData: json.allPostsData,
+      allPostsData,
     },
   };
 }
@@ -62,7 +61,7 @@ export default function Home({ allPostsData }) {
           <ul className={utilStyles.list}>
             {allPostsData.map(({ id, date, title }) => (
               <li className={utilStyles.listItem} key={id}>
-                {title}
+                <Link href={`/posts/${id}`}>{title}</Link>
                 <br />
                 {id}
                 <br />
