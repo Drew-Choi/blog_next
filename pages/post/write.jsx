@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 
@@ -8,7 +9,7 @@ const Write = () => {
   const titleRef = useRef(undefined);
   const contentRef = useRef(undefined);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const id = idRef.current.value;
@@ -16,26 +17,42 @@ const Write = () => {
     const content = contentRef.current.value;
 
     if (id && title && content) {
-      fetch('/api/post/write', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      // fetch('/api/post/write', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     id,
+      //     title,
+      //     content,
+      //   }),
+      // })
+      //   .then((res) => {
+      //     if (res.ok) {
+      //       return res.json();
+      //     }
+      //     throw new Error('Fetch Error');
+      //   })
+      //   .then((data) => {
+      //     alert(data.message);
+      //     router.push(`/posts/${id}`);
+      //   })
+      //   .catch((err) => alert(`Request Error: ${err}`));
+      try {
+        const response = await axios.post('/api/post/write', {
           id,
           title,
           content,
-        }),
-      })
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          throw new Error('Fetch Error');
-        })
-        .then((data) => {
-          alert(data.message);
+        });
+
+        if (response.status === 200) {
+          alert(response.data.message);
           router.push(`/posts/${id}`);
-        })
-        .catch((err) => alert(`Request Error: ${err}`));
+        } else {
+          throw new Error('Fetch Error');
+        }
+      } catch (error) {
+        alert(`Request Error: ${error}`);
+      }
     }
   };
 
